@@ -44,7 +44,7 @@ export function BulkActionsToolbar() {
   const count = selectedKeywordIds.size;
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-4xl animate-in slide-in-from-bottom-8 fade-in duration-200">
+    <div className="fixed bottom-20 md:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-4xl animate-in slide-in-from-bottom-8 fade-in duration-200">
       <div className="flex items-center justify-between gap-2 p-2.5 sm:p-3 rounded-2xl bg-slate-900/95 dark:bg-slate-800/95 text-white shadow-2xl border border-slate-700/80 backdrop-blur-md">
         {/* Left: Selection Counter & Clear */}
         <div className="flex items-center gap-2 pl-2">

@@ -37,54 +37,61 @@ export function AllKeywordsView() {
     filteredKeywords.length === 0 && (searchQuery.trim() !== "" || activeFilterCount > 0);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+            <h1 className="text-xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               All Keywords
             </h1>
             <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300">
-              {filteredKeywords.length} {filteredKeywords.length === 1 ? "Keyword" : "Keywords"}
+              {filteredKeywords.length}
             </span>
           </div>
-          <p className="text-sm text-slate-500 dark:text-zinc-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-0.5 sm:mt-1">
             Browse, filter, sort, and inspect all Etsy keywords saved in your local vault.
           </p>
         </div>
 
         {/* Add Keyword Button & Mode Toggle */}
-        <div className="flex items-center gap-2.5 flex-wrap">
-          <ModeToggle />
+        <div className="flex flex-col xs:flex-row items-stretch xs:items-center gap-2 sm:gap-2.5">
+          <ModeToggle fullWidthOnMobile={true} />
           <button
             type="button"
             onClick={openAddModal}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl shadow-xs shadow-blue-500/20 hover:shadow-md transition-all self-start sm:self-auto cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-xl shadow-xs shadow-blue-500/20 hover:shadow-md transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            Add Keyword
+            <span>Add Keyword</span>
           </button>
         </div>
       </div>
 
       {/* Table Controls Row */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col gap-2.5 sm:gap-3 pt-1">
+        <div className="flex items-center justify-between">
           <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
             Vault Catalog
           </span>
+          <span className="sm:hidden text-xs text-slate-500 dark:text-zinc-400">
+            {filteredKeywords.length} results
+          </span>
         </div>
 
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar flex-wrap sm:flex-nowrap">
           {/* Quick Product Type Toggle Switch in Pro Mode */}
-          {isProMode && <ProductTypeToggle />}
+          {isProMode && (
+            <div className="shrink-0">
+              <ProductTypeToggle />
+            </div>
+          )}
 
           {/* Filter Drawer Trigger Button */}
           <button
             type="button"
             onClick={openFilterDrawer}
-            className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl border transition-colors shadow-xs ${
+            className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl border transition-colors shadow-2xs ${
               activeFilterCount > 0
                 ? "bg-blue-50 dark:bg-zinc-800 border-blue-400 text-blue-700 dark:text-blue-300 font-bold"
                 : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-50 dark:hover:bg-zinc-800"
@@ -100,7 +107,9 @@ export function AllKeywordsView() {
           </button>
 
           {/* Sort Dropdown */}
-          <SortDropdown />
+          <div className="shrink-0">
+            <SortDropdown />
+          </div>
         </div>
       </div>
 
@@ -120,7 +129,7 @@ export function AllKeywordsView() {
           </div>
 
           {/* Mobile Cards View */}
-          <div className="md:hidden space-y-3">
+          <div className="md:hidden space-y-2.5">
             {filteredKeywords.map((kw) => (
               <KeywordCard key={kw.id} keyword={kw} />
             ))}

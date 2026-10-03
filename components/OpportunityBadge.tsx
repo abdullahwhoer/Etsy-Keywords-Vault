@@ -11,6 +11,7 @@ interface OpportunityBadgeProps {
   competition: number;
   showScoreBar?: boolean;
   size?: "sm" | "md" | "lg";
+  compact?: boolean;
 }
 
 export function OpportunityBadge({
@@ -18,16 +19,17 @@ export function OpportunityBadge({
   competition,
   showScoreBar = false,
   size = "md",
+  compact = false,
 }: OpportunityBadgeProps) {
   const opp = calculateOpportunity(searchVolume, competition);
 
   return (
-    <div className="flex flex-col items-start gap-1">
-      <div className="flex items-center gap-1.5">
+    <div className="flex flex-col items-start gap-1 w-full max-w-full">
+      <div className="flex items-center gap-1.5 max-w-full">
         <Tooltip content={OPPORTUNITY_TOOLTIP}>
           <span
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-full font-medium border transition-colors cursor-help",
+              "inline-flex items-center gap-1.5 rounded-full font-medium border transition-colors cursor-help max-w-full truncate",
               opp.badgeClass,
               size === "sm" && "px-2 py-0.5 text-[10px]",
               size === "md" && "px-2.5 py-0.5 text-xs",
@@ -35,15 +37,18 @@ export function OpportunityBadge({
             )}
           >
             <span className={cn("rounded-full shrink-0", opp.dotClass, size === "sm" ? "w-1.5 h-1.5" : "w-2 h-2")} />
-            <span className="font-bold">{opp.formattedRatio}</span>
-            <span className="opacity-90 font-normal">({opp.label})</span>
-            <HelpCircle className="w-3 h-3 opacity-60 ml-0.5" />
+            <span className="font-bold shrink-0">{opp.formattedRatio}</span>
+            {!compact ? (
+              <span className="opacity-90 font-normal truncate">({opp.label})</span>
+            ) : (
+              <span className="opacity-90 font-medium truncate">{opp.label}</span>
+            )}
           </span>
         </Tooltip>
       </div>
 
       {showScoreBar && (
-        <div className="w-full max-w-[120px] bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+        <div className="w-full bg-slate-100 dark:bg-zinc-800 rounded-full h-1.5 overflow-hidden">
           <div
             className={cn(
               "h-full rounded-full transition-all duration-300",

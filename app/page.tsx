@@ -20,6 +20,7 @@ import { BulkActionsToolbar } from "@/components/BulkActionsToolbar";
 import { BulkEditModal } from "@/components/BulkEditModal";
 import { CollectionModal } from "@/components/CollectionModal";
 import { ImportModal } from "@/components/ImportModal";
+import { MobileBottomNav } from "@/components/MobileBottomNav";
 
 export default function Home() {
   const { activeTab } = useKeywords();
@@ -27,7 +28,7 @@ export default function Home() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex">
+    <div className="min-h-screen bg-slate-50/50 dark:bg-black text-slate-900 dark:text-white flex">
       {/* Sidebar */}
       <Sidebar
         isOpenMobile={isMobileSidebarOpen}
@@ -46,7 +47,7 @@ export default function Home() {
         <Header onOpenMobileSidebar={() => setIsMobileSidebarOpen(true)} />
 
         {/* View Router */}
-        <main className="flex-1 p-4 md:p-8 max-w-7xl w-full mx-auto pb-24">
+        <main className="flex-1 p-3.5 sm:p-6 md:p-8 max-w-7xl w-full mx-auto pb-28 md:pb-16">
           {activeTab === "dashboard" && <DashboardView />}
           {activeTab === "all" && <AllKeywordsView />}
           {activeTab === "checking-keywords" && <CheckingKeywordsView />}
@@ -55,6 +56,9 @@ export default function Home() {
           {activeTab === "settings" && <SettingsView />}
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation Dock */}
+      <MobileBottomNav />
 
       {/* Bulk Actions Floating Toolbar */}
       <BulkActionsToolbar />
